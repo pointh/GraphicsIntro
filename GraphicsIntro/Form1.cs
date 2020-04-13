@@ -17,7 +17,7 @@ namespace GraphicsIntro
             InitializeComponent();
         }
 
-        private void DrawShape(Graphics g, Pen p, int x, int y)
+        private void DrawRectangle(Graphics g, Pen p, int x, int y)
         {
             Point[] ps =
             {
@@ -29,26 +29,42 @@ namespace GraphicsIntro
             };
             g.DrawLines(p, ps);
         }
+
+        private void DrawCircle(Graphics g, Pen p, int x, int y, int r)
+        {
+            g.DrawEllipse(p, x-r, y-r, 2*r, 2*r);
+        }
+
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Pen p1 = new Pen(Color.Red);
             Pen p2 = new Pen(Color.Blue);
 
-            DrawShape(e.Graphics, p1, 10, 0);
-            DrawShape(e.Graphics, p2, 150, 0);
+            DrawRectangle(e.Graphics, p1, 10, 0);
+            DrawRectangle(e.Graphics, p2, 150, 0);
 
             e.Graphics.TranslateTransform(20, 250);
-            DrawShape(e.Graphics, p1, 10, 0);
-            DrawShape(e.Graphics, p2, 150, 0);
+            DrawRectangle(e.Graphics, p1, 10, 0);
+            DrawRectangle(e.Graphics, p2, 150, 0);
 
             e.Graphics.RotateTransform(30);
-            DrawShape(e.Graphics, p1, 10, 0);
-            DrawShape(e.Graphics, p2, 150, 0);
+            DrawRectangle(e.Graphics, p1, 10, 0);
+            DrawRectangle(e.Graphics, p2, 150, 0);
 
             e.Graphics.RotateTransform(-60);
-            e.Graphics.ScaleTransform(2f, 0.5f);
-            DrawShape(e.Graphics, p1, 10, 0);
-            DrawShape(e.Graphics, p2, 150, 0);
+            e.Graphics.ScaleTransform(2.0f, 0.6f);
+            DrawRectangle(e.Graphics, p1, 10, 0);
+            DrawRectangle(e.Graphics, p2, 150, 0);
+        }
+
+       
+        private void cycleButton_Paint(object sender, PaintEventArgs e)
+        {
+            Pen p = new Pen(Color.Green);
+            DrawCircle(e.Graphics, p,
+                (sender as Control).Width / 3,
+                (sender as Control).Height / 2,
+                (sender as Control).Height / 4);
         }
     }
 }
